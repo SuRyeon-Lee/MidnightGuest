@@ -1,0 +1,360 @@
+@charset "utf-8";
+
+@keyframes ani-head {
+  to {
+    transform: rotateX(-10deg);
+  }
+}
+@keyframes ani-running-leg {
+  from {
+    transform: rotateX(-30deg);
+  }
+  to {
+    transform: rotateX(30deg);
+  }
+}
+@keyframes ani-running-arm {
+  from {
+    transform: rotateY(30deg);
+  }
+  to {
+    transform: rotateY(-30deg);
+  }
+}
+
+body {
+  height: 500vw;
+  font-family: "Apple SD Gothic Neo", "Roboto", "Noto Sans KR", "NanumGothic",
+    "Malgun Gothic", sans-serif;
+  -webkit-overflow-scrolling: touch;
+  color: white;
+  background: linear-gradient(#000000, #3115ff);
+  transition: background 0.5s;
+}
+.world {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  perspective: 1000px;
+}
+.stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+}
+.house {
+  width: 100vw;
+  height: 100vh;
+  transform-style: preserve-3d;
+  transform: translateZ(-490vw);
+}
+.wall {
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-y: bottom;
+  position: absolute;
+}
+.wall-left {
+  width: 1000vw;
+  transform: rotateY(90deg) translateZ(-500vw);
+  background-image: url("../images/night-guest-wall_left.png");
+  background-repeat: repeat-x;
+}
+.wall-right {
+  width: 1000vw;
+  background-image: url("../images/night-guest-wall_right.png");
+  transform: rotateY(90deg) translateZ(-400vw);
+  background-repeat: repeat-x;
+}
+
+.light-left {
+  background-image: url("../images/light-left.png");
+  background-position-x: 0%;
+}
+
+.light-right {
+  background-image: url("../images/light-right.png");
+  background-position-x: 100%;
+}
+
+.wall-last {
+  background-image: url("../images/wall-last-graffiti.png");
+  background-repeat: repeat-x;
+}
+
+.wall-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+.wall-title {
+  font-family: "Archivo Black", sans-serif;
+  font-size: 10rem;
+  margin-top: -35rem;
+  text-shadow: 2px 2px 10px #ffffff;
+}
+
+.wall-front-a {
+  transform: translateZ(300vw);
+}
+.wall-front-b {
+  transform: translateZ(50vw);
+}
+.wall-front-c {
+  transform: translateZ(-200vw);
+}
+.wall-front-d {
+  transform: translateZ(-500vw);
+}
+
+.progress-bar-con {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  height: 5px;
+  background: #555;
+}
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #00ff0c;
+}
+
+/* character */
+.character {
+  position: absolute;
+  left: 12%;
+  bottom: 5%;
+  width: 10vw;
+  height: 17.59vw; 
+  transform-style: preserve-3d;
+}
+.character[data-direction="forward"] {
+  transform: rotateY(180deg);
+}
+.character[data-direction="backward"] {
+  transform: rotateY(0deg);
+}
+.character[data-direction="left"] {
+  transform: rotateY(-90deg);
+}
+.character[data-direction="right"] {
+  transform: rotateY(90deg);
+}
+
+.character-face-con {
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: 1s;
+}
+.character-face {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: cover;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.character-face.face-back {
+  transform: rotateY(180deg);
+}
+.character-head {
+  left: 12%;
+  top: 0;
+  z-index: 60;
+  width: 75%;
+  height: 51%;
+  transform-origin: center bottom;
+  animation: ani-head 0.6s infinite alternate
+    cubic-bezier(0.46, 0.18, 0.66, 0.93);
+}
+.character-head-face.face-front {
+  background-image: url("../images/nightguest-head-front.png");
+}
+.character-head-face.face-back {
+  background-image: url("../images/nightguest-head-back.png");
+}
+.character-torso {
+  left: 12.46%;
+  top: 49%;
+  z-index: 50;
+  width: 75%;
+  height: 37.58%;
+  transform-origin: center center;
+}
+.character-torso-face.face-front {
+  background-image: url("../images/nightguest-body-front.png");
+}
+.character-torso-face.face-back {
+  background-image: url("../images/nightguest-body-back.png");
+}
+.character-arm-right {
+  left: 0;
+  top: calc(648 / 1334 * 100%);
+  width: 30%;
+  height: 34%;
+  transform-origin: right top;
+}
+.character-arm-right .face-front {
+  background-image: url("../images/nightguest-arm-0.png");
+}
+.character-arm-right .face-back {
+  background-image: url("../images/nightguest-arm-1.png");
+}
+.character-arm-left {
+  left: calc(600 / 856 * 100%);
+  top: calc(648 / 1334 * 100%);
+  width: 30%;
+  height: 34%;
+  transform-origin: left top;
+}
+.character-arm-left .face-front {
+  background-image: url("../images/nightguest-arm-1.png");
+}
+.character-arm-left .face-back {
+  background-image: url("../images/nightguest-arm-0.png");
+}
+.character-leg-right {
+  left: 21.4%;
+  bottom: 0%;
+  width: 25.53%;
+  height: 30%;
+  transform-origin: center top;
+}
+.character-leg-right .face-front {
+  background-image: url("../images/nightguest-leg.png");
+}
+.character-leg-right .face-back {
+  background-image: url("../images/nightguest-leg.png");
+}
+.character-leg-left {
+  right: 21.4%;
+  bottom: 0%;
+  width: 25.53%;
+  height: 30%;
+  transform-origin: center top;
+}
+.character-leg-left .face-front {
+  background-image: url("../images/nightguest-leg.png");
+}
+.character-leg-left .face-back {
+  background-image: url("../images/nightguest-leg.png");
+}
+.character.running .character-leg-right {
+  animation: ani-running-leg 0.2s alternate infinite linear;
+}
+.character.running .character-leg-left {
+  animation: ani-running-leg 0.2s alternate-reverse infinite linear;
+}
+.character.running .character-arm {
+  animation: ani-running-arm 0.2s alternate infinite linear;
+}
+body[data-char="daytime"] {
+  background: linear-gradient(#ff8110, #ffffff);
+}
+
+body[data-char="daytime"] .wall-last {
+  background-image: url("../images/wall-last-graffiti-day.png");
+}
+
+body[data-char="daytime"] .wall-left {
+  background-image: url("../images/day-guest-wall_left.png");
+}
+
+body[data-char="daytime"] .wall-right {
+  background-image: url("../images/day-guest-wall_right.png");
+}
+
+body[data-char="daytime"] .character-head-face.face-front {
+  background-image: url("../images/dayguest-head-front.png");
+}
+body[data-char="daytime"] .character-head-face.face-back {
+  background-image: url("../images/dayguest-head-back.png");
+}
+
+body[data-char="daytime"] .character-torso-face.face-front {
+  background-image: url("../images/dayguest-body.png");
+}
+body[data-char="daytime"] .character-torso-face.face-back {
+  background-image: url("../images/dayguest-body.png");
+}
+
+body[data-char="daytime"] .character-arm-right .face-front {
+  background-image: url("../images/dayguest-arm-0.png");
+}
+body[data-char="daytime"] .character-arm-right .face-back {
+  background-image: url("../images/dayguest-arm-1.png");
+}
+
+body[data-char="daytime"] .character-arm-left .face-front {
+  background-image: url("../images/dayguest-arm-1.png");
+}
+body[data-char="daytime"] .character-arm-left .face-back {
+  background-image: url("../images/dayguest-arm-0.png");
+}
+
+body[data-char="daytime"] .character-leg-right .face-front {
+  background-image: url("../images/dayquest-leg.png");
+}
+body[data-char="daytime"] .character-leg-right .face-back {
+  background-image: url("../images/dayquest-leg.png");
+}
+
+body[data-char="daytime"] .character-leg-left .face-front {
+  background-image: url("../images/dayquest-leg.png");
+}
+body[data-char="daytime"] .character-leg-left .face-back {
+  background-image: url("../images/dayquest-leg.png");
+}
+
+/* character button */
+.select-character {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 100;
+}
+.select-character-btn {
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.select-character-btn-midnight {
+  background-image: url("../images/nightguest-head-front.png");
+  background-size: 36px auto;
+}
+.select-character-btn-daytime {
+  background-image: url("../images/dayguest-head-front.png");
+  opacity: 0.5;
+}
+body[data-char="daytime"] .select-character-btn-midnight {
+  opacity: 0.5;
+}
+body[data-char="midnight"] .select-character-btn-midnight,
+body[data-char="daytime"] .select-character-btn-daytime {
+  opacity: 1;
+}
